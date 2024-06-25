@@ -4,15 +4,14 @@ import coffee.waffle.emcutils.event.TooltipCallback;
 import coffee.waffle.emcutils.feature.VaultScreen;
 import coffee.waffle.emcutils.Util;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,14 +24,12 @@ import static coffee.waffle.emcutils.Util.MODID;
 
 @Mod(MODID)
 public class EMCUtilsForge {
-	public EMCUtilsForge() {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetupEvent);
+	public EMCUtilsForge(ModContainer container) {
+		NeoForge.EVENT_BUS.addListener(this::clientSetupEvent);
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigImpl.SPEC);
+		container.registerConfig(ModConfig.Type.CLIENT, ConfigImpl.SPEC);
 
 		movePacks("vt-dark-vault", "dark-ui-vault");
-
-		ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> "", (a, b) -> b));
 
 		LOG.info("Initialized " + MODID);
 	}
@@ -64,6 +61,6 @@ public class EMCUtilsForge {
 
 	@SubscribeEvent
 	public static void tooltipEvent(ItemTooltipEvent event) {
-		//TooltipCallback.ITEM.invoker().append(event.getItemStack(), event.getToolTip(), event.get(), event.getFlags());
+		TooltipCallback.ITEM.invoker().append(event.getItemStack(), event.getToolTip(), event.getContext(), event.getFlags());
 	}
 }

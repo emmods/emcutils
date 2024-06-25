@@ -12,6 +12,7 @@ subprojects {
 	repositories {
 		[
 			['Modrinth', 'api.modrinth.com/maven', ['maven.modrinth'], []],
+			['NeoForge', 'maven.neoforged.net/releases', [], []],
 		].forEach { var mavenInfo ->
 			exclusiveContent {
 				forRepository {
@@ -34,7 +35,10 @@ subprojects {
 
 	dependencies {
 		minecraft libs.minecraft
-		mappings variantOf(libs.yarn) { classifier 'v2' }
+		mappings loom.layered() {
+			it.mappings variantOf(libs.yarn) { classifier 'v2' }
+			it.mappings libs.yarn.patch
+		}
 	}
 
 	loom {
@@ -59,7 +63,7 @@ allprojects {
 
 	tasks.withType(JavaCompile).configureEach {
 		options.encoding = 'UTF-8'
-		options.release.set 17
+		options.release.set 21
 	}
 
 	java.withSourcesJar()

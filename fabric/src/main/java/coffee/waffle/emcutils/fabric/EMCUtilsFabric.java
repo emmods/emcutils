@@ -32,8 +32,8 @@ public class EMCUtilsFabric implements ClientModInitializer {
 
 		HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 
-		ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
-			TooltipCallback.ITEM.invoker().append(stack, lines, context);
+		ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
+			TooltipCallback.ITEM.invoker().append(stack, lines, context, type);
 		});
 
 		LOG.info("Initialized " + MODID);

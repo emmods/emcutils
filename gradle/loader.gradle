@@ -5,6 +5,8 @@ loom.accessWidenerPath.set commonAW
 
 String projectName = "${name.substring(0, 1).toUpperCase()}${name.substring(1)}"
 
+if (projectName == 'Neoforge') projectName = 'NeoForge'
+
 configurations {
 	common
 	shadowCommon
@@ -22,9 +24,13 @@ shadowJar {
 	archiveClassifier = 'dev-shadow'
 }
 
+tasks.register('gabagool') {
+	print remapJar.getTaskDependencies().getDependencies(remapJar)
+}
+
 remapJar {
 	inputFile.set shadowJar.archiveFile
-	dependsOn shadowJar
+
 	archiveClassifier = null
 }
 

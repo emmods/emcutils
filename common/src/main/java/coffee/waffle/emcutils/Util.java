@@ -64,6 +64,6 @@ public class Util {
 	}
 
 	public static Identifier id(String id) {
-		return new Identifier(MODID, id);
+		return Identifier.of(MODID, id);
 	}
 }

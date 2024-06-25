@@ -6,7 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -15,7 +15,7 @@ import static coffee.waffle.emcutils.Util.plural;
 
 public class UsableItems {
 	public static void init() {
-		TooltipCallback.ITEM.register((itemStack, list, tooltipContext) -> {
+		TooltipCallback.ITEM.register((itemStack, list, tooltipContext, type) -> {
 			if (!Util.isOnEMC || !isUsableItemWithCooldown(itemStack)) return;
 
 			for (Text text : list) {
@@ -33,14 +33,16 @@ public class UsableItems {
 				list.add(Text.of("Can be used now").copy().formatted(Formatting.GREEN));
 			}
 
-			itemStack.getItem().appendTooltip(itemStack, MinecraftClient.getInstance().world, list, tooltipContext);
+			itemStack.getItem().appendTooltip(itemStack, tooltipContext, list, type);
 		});
 	}
 
 	private static boolean isUsableItemWithCooldown(ItemStack item) {
-		if (item == null || item.getNbt() == null || item.getNbt().get("display") == null) return false;
+		if (item == null ||
+			item.get(DataComponentTypes.CUSTOM_DATA) == null ||
+			item.get(DataComponentTypes.CUSTOM_DATA).copyNbt().get("display") == null) return false;
 
-		String displayString = item.getNbt().get("display").toString();
+		String displayString = item.get(DataComponentTypes.CUSTOM_DATA).copyNbt().get("display").toString();
 
 		JsonObject display = JsonParser.parseString(displayString).getAsJsonObject();
 		JsonArray originalLore = display.getAsJsonArray("OriginalLore");
@@ -49,16 +51,19 @@ public class UsableItems {
 
 		if (originalLore != null) {
 			for (int i = 0; i < originalLore.size(); i++) {
-				JsonObject metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
+				JsonObject metaLine;
+				try {
+					metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
+				} catch (IllegalStateException e) {
+					continue;
+				}
 
 				if (metaLine.has("extra")) {
-					JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
+					String text = metaLine.getAsJsonArray("extra").get(0).toString();
 
-					String text = extra.getAsJsonObject().get("text").getAsString();
+					if (text.equals("\"__usableItem\"")) usable = true;
 
-					if (text.equals("__usableItem")) usable = true;
-
-					if (text.equals("useTimer") && usable) return true;
+					if (text.equals("\"useTimer\"") && usable) return true;
 				}
 			}
 		}
@@ -66,7 +71,7 @@ public class UsableItems {
 	}
 
 	private static long getSecondsUntilUsable(ItemStack item) {
-		String displayString = item.getNbt().get("display").toString();
+		String displayString = item.get(DataComponentTypes.CUSTOM_DATA).copyNbt().get("display").toString();
 
 		JsonObject display = JsonParser.parseString(displayString).getAsJsonObject();
 		JsonArray originalLore = display.getAsJsonArray("OriginalLore");
@@ -76,21 +81,24 @@ public class UsableItems {
 		int useTimerLine = -1;
 
 		for (int i = 0; i < originalLore.size(); i++) {
-			JsonObject metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
+			JsonObject metaLine;
+			try {
+				metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
+			} catch (IllegalStateException e) {
+				continue;
+			}
 
 			if (metaLine.has("extra")) {
-				JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
+				String text = metaLine.getAsJsonArray("extra").get(0).toString();
 
-				String text = extra.getAsJsonObject().get("text").getAsString();
-
-				if (text.equals("useTimer")) useTimerLine = i;
+				if (text.equals("\"useTimer\"")) useTimerLine = i;
 			}
 		}
 
 		if (useTimerLine == -1) return 0L;
 
-		long time = JsonParser.parseString(originalLore.get(useTimerLine + 1).getAsString())
-			.getAsJsonObject().get("text").getAsLong();
+		String unparsed = originalLore.get(useTimerLine + 1).getAsString();
+		long time = Long.parseLong(unparsed.substring(1, unparsed.length() - 1));
 
 		return Math.max(0, (time - System.currentTimeMillis()) / 1000L);
 	}

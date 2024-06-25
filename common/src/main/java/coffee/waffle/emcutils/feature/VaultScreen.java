@@ -1,7 +1,6 @@
 package coffee.waffle.emcutils.feature;
 
 import coffee.waffle.emcutils.Config;
-import coffee.waffle.emcutils.Util;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -10,12 +9,11 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtHelper;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Style;
@@ -59,12 +57,11 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 			"ZTNmYzUyMjY0ZDhhZDllNjU0ZjQxNWJlZjAxYTIzOTQ3ZWRiY2NjY2Y2NDkzNzMyODliZWE0ZDE0OTU0MWY3MC" :
 			"NWYxMzNlOTE5MTlkYjBhY2VmZGMyNzJkNjdmZDg3YjRiZTg4ZGM0NGE5NTg5NTg4MjQ0NzRlMjFlMDZkNTNlNi") + "J9fX0=";
 
-		stack.setCustomName(formattedText(String.format("Go %s %s page%s", positive ? "forward" : "back", amount, plural(amount))));
+		stack.set(DataComponentTypes.CUSTOM_NAME, formattedText(String.format("Go %s %s page%s", positive ? "forward" : "back", amount, plural(amount))));
 		GameProfile profile = new GameProfile(UUID.fromString("1635371d-8f8b-4a90-8495-4e7df6c946b2"), "MrFrydae");
 		profile.getProperties().put("textures", new Property("Value", head));
 
-		assert stack.getNbt() != null;
-		stack.getNbt().put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile));
+		stack.set(DataComponentTypes.PROFILE, new ProfileComponent(profile));
 
 		return stack;
 	}
@@ -81,7 +78,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 		}
 
 		ItemStack chest = Items.CHEST.getDefaultStack();
-		chest.setCustomName(formattedText("View your vaults"));
+		chest.set(DataComponentTypes.CUSTOM_NAME, formattedText("View your vaults"));
 		drawButton(context, chest, mouseX, mouseY, slotOffsets[4], "");
 
 		//noinspection ConstantValue

@@ -3,7 +3,7 @@ apply from: '../gradle/map-integrations.gradle'
 repositories {
 	maven {
 		url 'https://jm.gserv.me/repository/maven-public/'
-		content { includeModule 'info.journeymap', 'journeymap-api' }
+		content { includeModule 'info.journeymap', 'journeymap-api-fabric' }
 	}
 }
 

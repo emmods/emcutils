@@ -1,8 +1,8 @@
 apply from: '../gradle/fabric-based.gradle'
 
 dependencies {
-	api project(':common')
-	api project(':fabric')
+	compileOnly project(':common')
+	compileOnly project(':fabric')
 }
 
 loom.enableTransitiveAccessWideners = false

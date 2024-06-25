@@ -5,15 +5,14 @@ plugins {
 
 apply from: '../gradle/loader.gradle'
 
-architectury.forge()
+architectury.neoForge()
 
-remapJar {
-	enabled = false
-}
+//maven {
+//	url "https://maven.neoforged.net/releases/"
+//}
 
-loom.forge {
-	mixinConfig 'emcutils-common.mixins.json'
-	convertAccessWideners.set true
+loom.neoForge {
+//	convertAccessWideners.set true
 }
 
 configurations {
@@ -21,7 +20,7 @@ configurations {
 }
 
 dependencies {
-	forge libs.forge
+	neoForge libs.neoforge
 }
 
 processResources {
