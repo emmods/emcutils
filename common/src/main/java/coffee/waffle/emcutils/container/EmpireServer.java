@@ -129,9 +129,9 @@ public enum EmpireServer {
 
 				residences.add(new EmpireResidence(this, e.getValue().getAsJsonObject()));
 			});
-			LOG.info("Loaded residences for: " + name.toLowerCase());
+			LOG.info("Loaded residences for: {}", name.toLowerCase());
 		} catch (IOException | InterruptedException e) {
-			LOG.info("Residence collector for " + name.toLowerCase() + " failed; you may find the 'Don't run residence collector' option to be useful. This option will prevent the residence collector from running at all, which, on very slow connections, will help prevent requests which will fail anyway.");
+			LOG.info("Residence collector for {} failed; you may find the 'Don't run residence collector' option to be useful. This option will prevent the residence collector from running at all, which, on very slow connections, will help prevent requests which will fail anyway.", name.toLowerCase());
 		}
 	}
 }

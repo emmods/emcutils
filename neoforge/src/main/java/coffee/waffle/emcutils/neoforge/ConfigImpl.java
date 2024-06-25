@@ -1,4 +1,4 @@
-package coffee.waffle.emcutils.forge;
+package coffee.waffle.emcutils.neoforge;
 
 import coffee.waffle.emcutils.Config.ChatAlertSound;
 import coffee.waffle.emcutils.Config.TabListCurrentServerPlacement;

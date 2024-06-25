@@ -7,7 +7,7 @@
 		"GuiMapNameMixin",
 		"MapTeleporterMixin",
 		"ModSettingsMixin",
-		"SupportXaeroMinimapMixin"
+		"WaypointsManagerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

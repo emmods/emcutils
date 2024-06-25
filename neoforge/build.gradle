@@ -7,12 +7,11 @@ apply from: '../gradle/loader.gradle'
 
 architectury.neoForge()
 
-//maven {
-//	url "https://maven.neoforged.net/releases/"
-//}
-
-loom.neoForge {
-//	convertAccessWideners.set true
+loom {
+	neoForge {
+		accessWidenerPath.set project(":common").file("src/main/resources/emcutils.accesswidener")
+		//convertAccessWideners.set true
+	}
 }
 
 configurations {
@@ -26,7 +25,11 @@ dependencies {
 processResources {
 	inputs.property 'version', project.version
 
-	filesMatching('META-INF/mods.toml') {
-		expand 'version': project.version
+	filesMatching('META-INF/neoforge.mods.toml') {
+		expand version: project.version
 	}
+}
+
+remapJar {
+	atAccessWideners.add "emcutils.accesswidener"
 }

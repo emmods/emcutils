@@ -22,6 +22,7 @@ public class Util {
 	public static int playerGroupId = 0;
 
 	public static void setCurrentServer(String name) {
+		if (name.equalsIgnoreCase("utop")) name = "utopia";
 		for (EmpireServer server : EmpireServer.values()) {
 			if (server.name.equalsIgnoreCase(name)) {
 				currentServer = server;

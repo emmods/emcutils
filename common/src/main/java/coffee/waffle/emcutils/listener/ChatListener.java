@@ -27,7 +27,7 @@ public class ChatListener {
 
 	private static ActionResult handlePrivateMessageStart(Text text) {
 		if (text.getString().matches(CHAT_PRIVATE_MESSAGE)) {
-			var user = text.getSiblings().get(0);
+			var user = text.getSiblings().getFirst();
 
 			ChatChannels.inPrivateConversation = true;
 			ChatChannels.currentChannel = null;
@@ -40,7 +40,7 @@ public class ChatListener {
 
 	private static ActionResult handleChatChannelChange(Text text) {
 		if (text.getString().matches(CHAT_FOCUS_MESSAGE)) {
-			var channel = ChatChannels.ChatChannel.getChannelByName(text.getSiblings().get(0).getString().trim());
+			var channel = ChatChannels.ChatChannel.getChannelByName(text.getSiblings().getFirst().getString().trim());
 
 			if (channel != null) {
 				ChatChannels.currentChannel = channel;
@@ -54,14 +54,14 @@ public class ChatListener {
 	private static ActionResult initialServerInfo(Text text) {
 		if (text.getString().matches(WELCOME_TO_EMC)) {
 			var currentServer = text // Welcome to
-				.getSiblings().get(0) // Empire Minecraft
-				.getSiblings().get(0) // -
-				.getSiblings().get(0); // SMPx
+				.getSiblings().getFirst() // Empire Minecraft
+				.getSiblings().getFirst() // -
+				.getSiblings().getFirst(); // SMPx/UTOPIA
 			Util.setCurrentServer(currentServer.getString().substring(0, 4));
 
 			var group = currentServer
-				.getSiblings().get(0) // ,
-				.getSiblings().get(0) // PLAYERNAME
+				.getSiblings().getFirst() // ,
+				.getSiblings().getFirst() // PLAYERNAME
 				.getStyle().getColor();
 			if (group != null) Util.playerGroupId = getGroupIdFromColor(group);
 

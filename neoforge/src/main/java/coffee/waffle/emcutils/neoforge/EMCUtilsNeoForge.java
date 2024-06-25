@@ -1,17 +1,20 @@
-package coffee.waffle.emcutils.forge;
+package coffee.waffle.emcutils.neoforge;
 
 import coffee.waffle.emcutils.event.TooltipCallback;
 import coffee.waffle.emcutils.feature.VaultScreen;
 import coffee.waffle.emcutils.Util;
-import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.registry.Registries;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLPaths;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,9 +26,15 @@ import static coffee.waffle.emcutils.Util.LOG;
 import static coffee.waffle.emcutils.Util.MODID;
 
 @Mod(MODID)
-public class EMCUtilsForge {
-	public EMCUtilsForge(ModContainer container) {
-		NeoForge.EVENT_BUS.addListener(this::clientSetupEvent);
+public class EMCUtilsNeoForge {
+	public EMCUtilsNeoForge(ModContainer container, IEventBus modBus) {
+		modBus.addListener(this::clientSetupEvent);
+		modBus.addListener(this::registerScreen);
+		NeoForge.EVENT_BUS.addListener(this::tooltipEvent);
+
+		var registry = DeferredRegister.create(Registries.SCREEN_HANDLER, MODID);
+		registry.register(modBus);
+		registry.register("generic_63", () -> VaultScreen.GENERIC_9X7);
 
 		container.registerConfig(ModConfig.Type.CLIENT, ConfigImpl.SPEC);
 
@@ -44,7 +53,7 @@ public class EMCUtilsForge {
 		}
 
 		for (String pack : packs) {
-			try (InputStream packZip = EMCUtilsForge.class.getResourceAsStream("/resourcepacks/" + pack + ".zip")) {
+			try (InputStream packZip = EMCUtilsNeoForge.class.getResourceAsStream("/resourcepacks/" + pack + ".zip")) {
 				Files.copy(packZip, Paths.get("resourcepacks/" + pack + ".zip")); // This works in prod but not dev
 			} catch (FileAlreadyExistsException ignored) {
 			} catch (IOException | NullPointerException e) {
@@ -54,13 +63,17 @@ public class EMCUtilsForge {
 	}
 
 	@SubscribeEvent
+	public void registerScreen(RegisterMenuScreensEvent event) {
+		event.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
+	}
+
+	@SubscribeEvent
 	public void clientSetupEvent(FMLClientSetupEvent event) {
-		HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 		Util.runResidenceCollector();
 	}
 
 	@SubscribeEvent
-	public static void tooltipEvent(ItemTooltipEvent event) {
+	public void tooltipEvent(ItemTooltipEvent event) {
 		TooltipCallback.ITEM.invoker().append(event.getItemStack(), event.getToolTip(), event.getContext(), event.getFlags());
 	}
 }

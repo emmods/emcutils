@@ -76,11 +76,11 @@ public class ChatChannels {
 		int height = textRenderer.fontHeight;
 
 		if (currentChannel == channel && !inPrivateConversation) {
-			context.fill(channel.getOffset(), screen.height - 33, channel.getOffset() + width + 5, screen.height - (32 - height - 4), (0xff << 24) | channel.format.getColorValue());
+			context.fill(channel.getOffset(), screen.height - 33, channel.getOffset() + width + 5, screen.height - (32 - height - 4), (0xff << 24) | channel.color);
 		}
 
 		context.fill(channel.getOffset() + 1, screen.height - 32, channel.getOffset() + width + 4, screen.height - (32 - height - 3), (0xc0 << 24));
-		context.drawText(textRenderer, Text.of(channel.name), channel.getOffset() + 3, screen.height - 30, channel.format.getColorValue(), true);
+		context.drawText(textRenderer, Text.of(channel.name), channel.getOffset() + 3, screen.height - 30, channel.color, true);
 	}
 
 	private static void drawPrivateConversation(Screen screen, DrawContext context) {
@@ -110,24 +110,25 @@ public class ChatChannels {
 	}
 
 	public enum ChatChannel {
-		COMMUNITY("Community", "cc", Formatting.DARK_GREEN, null),
-		MARKET("Market", "cm", Formatting.GOLD, COMMUNITY),
-		SERVER("Server", "cs", Formatting.RED, MARKET),
-		LOCAL("Local", "cl", Formatting.YELLOW, SERVER),
-		RESIDENCE("Residence", "cr", Formatting.BLUE, LOCAL),
-		GROUP("Group", "cg", Formatting.DARK_AQUA, RESIDENCE),
-		SUPPORTER("Supporter", "cp", Formatting.AQUA, GROUP),
-		MODERATOR("Moderator", "cx", Formatting.LIGHT_PURPLE, SUPPORTER);
+		COMMUNITY("Community", "cc", Formatting.DARK_GREEN.getColorValue(), null),
+		DISCORD("Discord", "cd", 0x7087d6, COMMUNITY),
+		MARKET("Market", "cm", Formatting.GOLD.getColorValue(), DISCORD),
+		SERVER("Server", "cs", Formatting.RED.getColorValue(), MARKET),
+		LOCAL("Local", "cl", Formatting.YELLOW.getColorValue(), SERVER),
+		RESIDENCE("Residence", "cr", Formatting.BLUE.getColorValue(), LOCAL),
+		GROUP("Group", "cg", Formatting.DARK_AQUA.getColorValue(), RESIDENCE),
+		SUPPORTER("Supporter", "cp", 0xfbbf00, GROUP),
+		MODERATOR("Moderator", "cx", Formatting.LIGHT_PURPLE.getColorValue(), SUPPORTER);
 
 		private final String name;
 		private final String command;
-		private final Formatting format;
+		private final Integer color;
 		private final ChatChannel adjustAgainst;
 
-		ChatChannel(String name, String command, Formatting format, ChatChannel adjustAgainst) {
+		ChatChannel(String name, String command, Integer color, ChatChannel adjustAgainst) {
 			this.name = name;
 			this.command = command;
-			this.format = format;
+			this.color = color;
 			this.adjustAgainst = adjustAgainst;
 		}
 

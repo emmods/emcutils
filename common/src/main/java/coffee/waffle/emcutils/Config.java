@@ -69,7 +69,7 @@ public class Config {
 		SERVER_DESCENDING {
 			@Override
 			public int compare(EnhancedTabListEntry entry1, EnhancedTabListEntry entry2) {
-				return Integer.compare(entry1.server.tabListRank, entry2.server.tabListRank);
+				return Integer.compare(entry2.server.tabListRank, entry1.server.tabListRank);
 			}
 		};
 

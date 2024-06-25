@@ -24,10 +24,6 @@ shadowJar {
 	archiveClassifier = 'dev-shadow'
 }
 
-tasks.register('gabagool') {
-	print remapJar.getTaskDependencies().getDependencies(remapJar)
-}
-
 remapJar {
 	inputFile.set shadowJar.archiveFile
 

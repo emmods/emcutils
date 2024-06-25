@@ -4,6 +4,7 @@ import coffee.waffle.emcutils.container.EmpireResidence;
 import coffee.waffle.emcutils.Util;
 import journeymap.api.v2.client.IClientAPI;
 import journeymap.api.v2.client.IClientPlugin;
+import journeymap.api.v2.client.JourneyMapPlugin;
 import journeymap.api.v2.client.display.Context;
 import journeymap.api.v2.client.event.MappingEvent;
 import journeymap.api.v2.client.fullscreen.ModPopupMenu;
@@ -16,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import static coffee.waffle.emcutils.Util.LOG;
 import static coffee.waffle.emcutils.Util.MODID;
 
+@JourneyMapPlugin(apiVersion = "2.0.0")
 public class EMCUtilsJourney implements IClientPlugin {
 	private static final MinecraftClient client = MinecraftClient.getInstance();
 
@@ -44,8 +46,9 @@ public class EMCUtilsJourney implements IClientPlugin {
 		});
 
 		// Add residence TP button
-		ClientEventRegistry.FULLSCREEN_POPUP_MENU_EVENT.subscribe(MODID, event ->
-			event.getPopupMenu().addMenuItem("Teleport to Residence", new TeleportToResidenceAction()));
+		ClientEventRegistry.FULLSCREEN_POPUP_MENU_EVENT.subscribe(MODID, event -> {
+			if (Util.isOnEMC) event.getPopupMenu().addMenuItem("Teleport to Residence", new TeleportToResidenceAction());
+		});
 	}
 
 	@Override
