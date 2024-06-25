@@ -10,7 +10,6 @@ architectury.neoForge()
 loom {
 	neoForge {
 		accessWidenerPath.set project(":common").file("src/main/resources/emcutils.accesswidener")
-		//convertAccessWideners.set true
 	}
 }
 

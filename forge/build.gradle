@@ -7,9 +7,8 @@ apply from: '../gradle/loader.gradle'
 
 architectury.forge()
 
-remapJar {
-	enabled = false
-}
+tasks.remapJar.enabled = false
+tasks.modrinth.enabled = false
 
 loom.forge {
 	mixinConfig 'emcutils-common.mixins.json'
