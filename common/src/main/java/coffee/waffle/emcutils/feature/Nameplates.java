@@ -20,7 +20,7 @@ public final class Nameplates {
 		PlayerListEntry entry = null;
 		for (PlayerListEntry playerListEntry : playerList) {
 			List<Text> siblings = playerListEntry.getDisplayName().getSiblings();
-			if (siblings.size() > 1 && siblings.get(1).contains(player.getName())) {
+			if (siblings.getFirst().contains(player.getName())) {
 				entry = playerListEntry;
 			}
 		}
@@ -30,7 +30,6 @@ public final class Nameplates {
 
 	public static MutableText parseDisplayName(PlayerListEntry entry) {
 		List<Text> siblings = Lists.newArrayList(Objects.requireNonNull(entry.getDisplayName()).getSiblings());
-		siblings.remove(0); // Remove Server Tag
 
 		MutableText text = Text.empty();
 		for (Text sibling : siblings) {
