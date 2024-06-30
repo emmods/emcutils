@@ -1,18 +1,32 @@
+# Gradle files
 .gradle/
 build/
 out/
 classes/
 *.launch
+gradle/wrapper
+gradlew
+gradlew.bat
+
+# IntelliJ IDEA files
 .idea/
 *.iml
 *.ipr
 *.iws
 .settings/
+
+# VS Code files
 .vscode/
+
+# Eclipse files
 bin/
 .classpath
 .project
+
+# MacOS files
 *.DS_Store
+
+# Java files
 run/
 generated/
 .architectury-transformer/
