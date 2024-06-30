@@ -2,6 +2,7 @@ package coffee.waffle.emcutils.mixin;
 
 import coffee.waffle.emcutils.Caches;
 import coffee.waffle.emcutils.Util;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,6 +16,8 @@ import java.util.concurrent.ExecutionException;
 abstract class PlayerEntityMixin {
 	@Inject(method = "getDisplayName", at = @At("HEAD"), cancellable = true)
 	private void emcutils$getDisplayName(CallbackInfoReturnable<Text> cir) {
+		if (MinecraftClient.getInstance().isInSingleplayer()) return; // Don't run anything for singleplayer
+
 		if (Util.isOnEMC) {
 			PlayerEntity e = ((PlayerEntity) (Object) this);
 
