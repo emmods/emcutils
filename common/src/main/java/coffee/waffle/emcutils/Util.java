@@ -37,7 +37,9 @@ public class Util {
 			return false;
 		}
 
-		return networkHandler.getConnection().getAddressAsString(true).contains("emc.gs");
+		String address = networkHandler.getConnection().getAddressAsString(true);
+
+		return address.contains("emc.gs") || address.contains("empire.us") || address.contains("empireminecraft.com");
 	}
 
 	public static void setCurrentServer(String name) {
