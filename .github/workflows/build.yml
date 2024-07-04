@@ -14,4 +14,4 @@ jobs:
         with:
           gradle-version: release-candidate
           arguments: build
-          cache-read-only: ${{ github.repository_owner != 'emmods' }}
+          cache-read-only: ${{ github.repository_owner != 'triphora' }}
