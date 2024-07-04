@@ -24,7 +24,7 @@ public class ChatChannels {
 	private static final TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 
 	public static void handleChatScreenRender(Screen screen, DrawContext context) {
-		if (Util.isOnEMC && Config.chatButtonsEnabled()) {
+		if (Util.isOnEMC() && Config.chatButtonsEnabled()) {
 			for (ChatChannel channel : ChatChannel.values()) {
 				if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
 				if (channel == ChatChannel.MODERATOR && Util.playerGroupId < 5) break;
@@ -36,7 +36,7 @@ public class ChatChannels {
 	}
 
 	public static void handleChatScreenMouseClicked(Screen screen, double mouseX, double mouseY) {
-		if (Util.isOnEMC && Config.chatButtonsEnabled()) {
+		if (Util.isOnEMC() && Config.chatButtonsEnabled()) {
 			for (ChatChannel channel : ChatChannel.values()) {
 				if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
 				if (channel == ChatChannel.MODERATOR && Util.playerGroupId < 5) break;

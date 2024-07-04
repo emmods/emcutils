@@ -20,7 +20,7 @@ import xaero.map.world.MapWorld;
 abstract class MapTeleporterMixin {
 	@Inject(method = "teleport", at = @At(value = "INVOKE_ASSIGN", target = "Lxaero/map/world/MapWorld;getTeleportCommandFormat()Ljava/lang/String;", remap = false), cancellable = true, remap = false)
 	private void emcutils$xaero$enableMapTeleportation(Screen screen, MapWorld mapWorld, int x, int y, int z, RegistryKey<World> d, CallbackInfo ci) {
-		if (Util.isOnEMC) {
+		if (Util.isOnEMC()) {
 			EmpireResidence res = Util.currentServer.getResidenceByLoc(new Vec3d(x, y, z));
 
 			if (res != null) {

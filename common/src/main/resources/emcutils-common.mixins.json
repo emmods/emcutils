@@ -6,10 +6,9 @@
 	"client": [
 		"ChatScreenMixin",
 		"ClientPlayNetworkHandlerMixin",
-		"ConnectScreenMixin",
 		"IdentifierMixin",
-		"PlayerListHudMixin",
-		"PlayerEntityMixin"
+		"PlayerEntityMixin",
+		"PlayerListHudMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

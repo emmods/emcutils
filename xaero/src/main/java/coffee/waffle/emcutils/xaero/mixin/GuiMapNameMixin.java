@@ -19,6 +19,6 @@ abstract class GuiMapNameMixin {
 	public void emcutils$xaero$setSubworldName(CallbackInfo ci) {
 		var server = Util.currentServer.name.toLowerCase();
 		var world = MinecraftClient.getInstance().world.getRegistryKey().getValue().getPath();
-		if (Util.isOnEMC) this.currentNameFieldContent = String.format("%s - %s", server, world);
+		if (Util.isOnEMC()) this.currentNameFieldContent = String.format("%s - %s", server, world);
 	}
 }
