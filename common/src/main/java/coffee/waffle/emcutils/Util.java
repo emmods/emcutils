@@ -1,6 +1,8 @@
 package coffee.waffle.emcutils;
 
 import coffee.waffle.emcutils.container.EmpireServer;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +18,27 @@ import java.util.stream.IntStream;
 public class Util {
 	public static final String MODID = "emcutils";
 	public static final Logger LOG = LoggerFactory.getLogger(MODID);
-	public static boolean isOnEMC = false;
 	public static EmpireServer currentServer;
 	public static String onJoinCommand;
 	public static int playerGroupId = 0;
+
+	public static boolean isOnEMC() {
+		if (MinecraftClient.getInstance().isInSingleplayer()) {
+			return false;
+		}
+
+		ClientPlayNetworkHandler networkHandler = MinecraftClient.getInstance().getNetworkHandler();
+
+		if (networkHandler == null) {
+			return false;
+		}
+
+		if (networkHandler.getConnection() == null) {
+			return false;
+		}
+
+		return networkHandler.getConnection().getAddressAsString(true).contains("emc.gs");
+	}
 
 	public static void setCurrentServer(String name) {
 		if (name.equalsIgnoreCase("utop")) name = "utopia";

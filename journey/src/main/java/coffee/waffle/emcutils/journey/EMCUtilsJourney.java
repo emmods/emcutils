@@ -26,7 +26,7 @@ public class EMCUtilsJourney implements IClientPlugin {
 		LOG.info(MODID + " found JourneyMap - enabling integrations");
 
 		ClientEventRegistry.MAPPING_EVENT.subscribe(MODID, event -> {
-			if (event.getStage() == MappingEvent.Stage.MAPPING_STARTED && Util.isOnEMC) {
+			if (event.getStage() == MappingEvent.Stage.MAPPING_STARTED && Util.isOnEMC()) {
 				// Disable cave maps on EMC
 				assert client.world != null;
 				if (!client.world.getRegistryKey().getValue().getPath().contains("nether")) {
@@ -42,12 +42,12 @@ public class EMCUtilsJourney implements IClientPlugin {
 
 		// Turn off radars on EMC
 		ClientEventRegistry.ENTITY_RADAR_UPDATE_EVENT.subscribe(MODID, event -> {
-			if (Util.isOnEMC) event.cancel();
+			if (Util.isOnEMC()) event.cancel();
 		});
 
 		// Add residence TP button
 		ClientEventRegistry.FULLSCREEN_POPUP_MENU_EVENT.subscribe(MODID, event -> {
-			if (Util.isOnEMC) event.getPopupMenu().addMenuItem("Teleport to Residence", new TeleportToResidenceAction());
+			if (Util.isOnEMC()) event.getPopupMenu().addMenuItem("Teleport to Residence", new TeleportToResidenceAction());
 		});
 	}
 
@@ -59,7 +59,7 @@ public class EMCUtilsJourney implements IClientPlugin {
 	private static class TeleportToResidenceAction implements ModPopupMenu.Action {
 		@Override
 		public void doAction(final @NotNull BlockPos pos) {
-			if (Util.isOnEMC) {
+			if (Util.isOnEMC()) {
 				EmpireResidence res = Util.currentServer.getResidenceByLoc(new Vec3d(pos.getX(), pos.getY(), pos.getZ()));
 				if (res != null) MinecraftClient.getInstance().player.networkHandler.sendCommand(res.visitCommand);
 			}

@@ -3,7 +3,6 @@ package coffee.waffle.emcutils.feature;
 import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.event.TooltipCallback;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.minecraft.component.DataComponentTypes;
@@ -16,7 +15,7 @@ import static coffee.waffle.emcutils.Util.plural;
 public class UsableItems {
 	public static void init() {
 		TooltipCallback.ITEM.register((itemStack, list, tooltipContext, type) -> {
-			if (!Util.isOnEMC || !isUsableItemWithCooldown(itemStack)) return;
+			if (!Util.isOnEMC() || !isUsableItemWithCooldown(itemStack)) return;
 
 			for (Text text : list) {
 				if (text.getString().startsWith("Usable in: ") ||

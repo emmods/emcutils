@@ -1,17 +1,16 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "coffee.waffle.emcutils.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"client": [
-		"ChatScreenMixin",
-		"ClientPlayNetworkHandlerMixin",
-		"ConnectScreenMixin",
-		"IdentifierMixin",
-		"PlayerListHudMixin",
-		"PlayerEntityMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "coffee.waffle.emcutils.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "ChatScreenMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "IdentifierMixin",
+    "PlayerEntityMixin",
+    "PlayerListHudMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

@@ -18,7 +18,7 @@ abstract class PlayerEntityMixin {
 	private void emcutils$getDisplayName(CallbackInfoReturnable<Text> cir) {
 		if (MinecraftClient.getInstance().isInSingleplayer()) return; // Don't run anything for singleplayer
 
-		if (Util.isOnEMC) {
+		if (Util.isOnEMC()) {
 			PlayerEntity e = ((PlayerEntity) (Object) this);
 
 			try {

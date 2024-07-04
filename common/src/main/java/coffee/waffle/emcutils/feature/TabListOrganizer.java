@@ -16,7 +16,7 @@ public class TabListOrganizer {
 		List<EnhancedTabListEntry> enhanced = Lists.newArrayList();
 		List<EnhancedTabListEntry> currentServer = Lists.newArrayList();
 
-		if (!Util.isOnEMC) {
+		if (!Util.isOnEMC()) {
 			return original;
 		}
 

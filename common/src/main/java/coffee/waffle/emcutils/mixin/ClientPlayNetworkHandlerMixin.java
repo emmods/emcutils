@@ -41,7 +41,7 @@ abstract class ClientPlayNetworkHandlerMixin {
 
 	@Inject(at = @At("TAIL"), method = "onGameJoin")
 	void emcutils$onJoinEMC(GameJoinS2CPacket packet, CallbackInfo info) {
-		if (Util.isOnEMC && !emcutils$online) {
+		if (Util.isOnEMC() && !emcutils$online) {
 			ChatListener.init();
 			CommandListener.init();
 			UsableItems.init();
@@ -52,7 +52,7 @@ abstract class ClientPlayNetworkHandlerMixin {
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/HandledScreens;open(Lnet/minecraft/screen/ScreenHandlerType;Lnet/minecraft/client/MinecraftClient;ILnet/minecraft/text/Text;)V"), method = "onOpenScreen", cancellable = true)
 	void emcutils$changeToVaultScreen(OpenScreenS2CPacket packet, CallbackInfo ci) {
-		if (Util.isOnEMC && packet.getName().getString().startsWith("Page: ") && packet.getScreenHandlerType() == ScreenHandlerType.GENERIC_9X6) {
+		if (Util.isOnEMC() && packet.getName().getString().startsWith("Page: ") && packet.getScreenHandlerType() == ScreenHandlerType.GENERIC_9X6) {
 			var pageTitle = packet.getName().copy();
 			if (pageTitle.getString().split(" ")[1].contains("69")) {
 				pageTitle = pageTitle.append(Text.of(" ... nice"));
