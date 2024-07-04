@@ -97,9 +97,14 @@ public class UsableItems {
 		if (useTimerLine == -1) return 0L;
 
 		String unparsed = originalLore.get(useTimerLine + 1).getAsString();
-		long time = Long.parseLong(unparsed.substring(1, unparsed.length() - 1));
+		try {
+			long time = Long.parseLong(unparsed.substring(1, unparsed.length() - 1));
 
-		return Math.max(0, (time - System.currentTimeMillis()) / 1000L);
+			return Math.max(0, (time - System.currentTimeMillis()) / 1000L);
+		} catch (NumberFormatException e) {
+			// item has not been used since before NBT format was changed and is therefore safe to use
+			return 0;
+		}
 	}
 
 	public static String formatTime(long seconds, int depth) {

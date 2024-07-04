@@ -39,6 +39,7 @@ public class VaultScreenHandler extends ScreenHandler {
 		return this.inventory.canPlayerUse(player);
 	}
 
+	@Override
 	public ItemStack quickMove(PlayerEntity player, int index) {
 		ItemStack itemStack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
