@@ -47,6 +47,31 @@ public class Config {
 		throw new AssertionError("ExpectPlatform didn't apply!");
 	}
 
+	@ExpectPlatform
+	public static int precisionPoints() {
+		throw new AssertionError("ExpectPlatform didn't apply!");
+	}
+
+	@ExpectPlatform
+	public static double aquaLowerRange() {
+		throw new AssertionError("ExpectPlatform didn't apply!");
+	}
+
+	@ExpectPlatform
+	public static double greenLowerRange() {
+		throw new AssertionError("ExpectPlatform didn't apply!");
+	}
+
+	@ExpectPlatform
+	public static double yellowLowerRange() {
+		throw new AssertionError("ExpectPlatform didn't apply!");
+	}
+
+	@ExpectPlatform
+	public static double redLowerRange() {
+		throw new AssertionError("ExpectPlatform didn't apply!");
+	}
+
 	public enum TabListSortType {
 		NAME_ASCENDING {
 			@Override

@@ -1,5 +1,6 @@
 package coffee.waffle.emcutils.feature;
 
+import coffee.waffle.emcutils.Config;
 import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.event.TooltipCallback;
 import com.google.gson.JsonArray;
@@ -12,23 +13,32 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
 public class HorseStats {
 	public static void init() {
 		TooltipCallback.ITEM.register((itemStack, list, tooltipContext, type) -> {
 			if (!Util.isOnEMC() || !isHorseSpawnEgg(itemStack)) return;
 
 			for (Text text : list) {
-				if (text.getString().startsWith("This horse is a")) return;
+				if (text.getString().startsWith("Overall rating")) return;
 			}
 
 			list.add(Text.empty());
 
 			double horseRating = getRating(itemStack);
 
-			list.add(Text.of("This horse is a " + horseRating + " out of 10").copy().formatted(Formatting.GREEN));
+			Formatting formatting = Formatting.WHITE;
+			if (horseRating >= Config.aquaLowerRange()) {
+				formatting = Formatting.AQUA;
+			} else if (horseRating >= Config.greenLowerRange()) {
+				formatting = Formatting.GREEN;
+			} else if (horseRating >= Config.yellowLowerRange()) {
+				formatting = Formatting.YELLOW;
+			} else if (horseRating >= Config.redLowerRange()) {
+				formatting = Formatting.RED;
+			}
+
+			list.add(Text.of("Overall rating: ").copy().formatted(Formatting.GRAY)
+				.append(Text.of(String.valueOf(horseRating)).copy().formatted(formatting, Formatting.BOLD)));
 
 			itemStack.getItem().appendTooltip(itemStack, tooltipContext, list, type);
 		});
@@ -138,6 +148,8 @@ public class HorseStats {
 
 		double overallRating = (speedRating + jumpRating + healthRating) / 3;
 
-		return (double) Math.round(overallRating * 100d) / 100d;
+		double precision = Math.pow(10, Config.precisionPoints());
+
+		return (double) Math.round(overallRating * precision) / precision;
 	}
 }

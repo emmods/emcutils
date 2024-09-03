@@ -5,6 +5,7 @@ import coffee.waffle.emcutils.Config.TabListCurrentServerPlacement;
 import coffee.waffle.emcutils.Config.TabListSortType;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
@@ -18,6 +19,11 @@ public class ConfigImpl {
 	public static EnumValue<ChatAlertSound> chatAlertSound;
 	public static BooleanValue dontRunResidenceCollector;
 	public static IntValue totalVaultPages;
+	public static IntValue precisionPoints;
+	public static DoubleValue aquaLowerRange;
+	public static DoubleValue greenLowerRange;
+	public static DoubleValue yellowLowerRange;
+	public static DoubleValue redLowerRange;
 
 	static {
 		ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder()
@@ -43,6 +49,18 @@ public class ConfigImpl {
 			.define("dontRunResidenceCollector", false);
 		totalVaultPages = builder.comment("Limit for vault page buttons")
 			.defineInRange("totalVaultPages", 255, 1, 255);
+		builder.pop();
+		builder.push("honse").comment("Honse Settings");
+		precisionPoints = builder.comment("Honse precision points (hi marvel)")
+				.defineInRange("precisionPoints", 2, 0, 10);
+		aquaLowerRange = builder.comment("Aqua colored horse rating, lower range")
+				.defineInRange("precisionPoints", 9.9, 0, 10);
+		greenLowerRange = builder.comment("Green colored horse rating, lower range")
+				.defineInRange("precisionPoints", 9.5, 0, 10);
+		yellowLowerRange = builder.comment("Yellow colored horse rating, lower range")
+				.defineInRange("precisionPoints", 9.0, 0, 10);
+		redLowerRange = builder.comment("Red colored horse rating, lower range")
+				.defineInRange("precisionPoints", 8.0, 0, 10);
 		builder.pop();
 		SPEC = builder.build();
 	}
@@ -77,5 +95,25 @@ public class ConfigImpl {
 
 	public static int totalVaultPages() {
 		return totalVaultPages.get();
+	}
+
+	public static int precisionPoints() {
+		return precisionPoints.get();
+	}
+
+	public static double aquaLowerRange() {
+		return aquaLowerRange.get();
+	}
+
+	public static double greenLowerRange() {
+		return greenLowerRange.get();
+	}
+
+	public static double yellowLowerRange() {
+		return yellowLowerRange.get();
+	}
+
+	public static double redLowerRange() {
+		return redLowerRange.get();
 	}
 }

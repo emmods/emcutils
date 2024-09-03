@@ -21,5 +21,10 @@
 	"emcutils.midnightconfig.dontRunResidenceCollector": "Don't run residence collector",
 	"emcutils.midnightconfig.dontRunResidenceCollector.tooltip": "The following config option can be enabled if you're running \n on a very slow connection to prevent spam in the console.\n Note, though, that this will disable cross-server visit \n command integration and minimap integration.",
 	"emcutils.midnightconfig.totalVaultPages": "Limit for vault page buttons",
-	"emcutils.midnightconfig.totalVaultPages.tooltip": "You should set this to the number of vault pages that you have. \n For example, if you have five vault pages, set this to 5."
+	"emcutils.midnightconfig.totalVaultPages.tooltip": "You should set this to the number of vault pages that you have. \n For example, if you have five vault pages, set this to 5.",
+	"emcutils.midnightconfig.precisionPoints": "Honse precision points (hi marvel)",
+	"emcutils.midnightconfig.aquaLowerRange": "Aqua colored horse rating, lower range",
+	"emcutils.midnightconfig.greenLowerRange": "Green colored horse rating, lower range",
+	"emcutils.midnightconfig.yellowLowerRange": "Yellow colored horse rating, lower range",
+	"emcutils.midnightconfig.redLowerRange": "Red colored horse rating, lower range"
 }
