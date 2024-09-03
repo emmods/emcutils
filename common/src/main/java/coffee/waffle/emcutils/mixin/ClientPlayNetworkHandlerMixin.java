@@ -3,6 +3,7 @@ package coffee.waffle.emcutils.mixin;
 import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.event.ChatCallback;
 import coffee.waffle.emcutils.event.CommandCallback;
+import coffee.waffle.emcutils.feature.HorseStats;
 import coffee.waffle.emcutils.feature.UsableItems;
 import coffee.waffle.emcutils.feature.VaultScreen;
 import coffee.waffle.emcutils.listener.ChatListener;
@@ -45,6 +46,7 @@ abstract class ClientPlayNetworkHandlerMixin {
 			ChatListener.init();
 			CommandListener.init();
 			UsableItems.init();
+			HorseStats.init();
 
 			emcutils$online = true;
 		}
