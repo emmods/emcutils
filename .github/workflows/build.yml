@@ -12,6 +12,6 @@ jobs:
           java-version: 21
       - uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: release-candidate
+          gradle-version: 8.11.1
           arguments: build
           cache-read-only: ${{ github.repository_owner != 'triphora' }}
