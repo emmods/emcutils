@@ -8,29 +8,37 @@ String projectName = "${name.substring(0, 1).toUpperCase()}${name.substring(1)}"
 if (projectName == 'Neoforge') projectName = 'NeoForge'
 
 configurations {
-	common
-	shadowCommon
+	common {
+		canBeResolved = true
+		canBeConsumed = false
+	}
+
 	compileClasspath.extendsFrom common
 	runtimeClasspath.extendsFrom common
+
+	shadowBundle {
+		canBeResolved = true
+		canBeConsumed = false
+	}
 }
 
 dependencies {
-	common(project(path: ':common', configuration: 'namedElements')) { transitive false }
-	shadowCommon(project(path: ':common', configuration: "transformProduction$projectName")) { transitive false }
+	common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+	shadowBundle project(path: ':common', configuration: "transformProduction$projectName")
 }
 
 shadowJar {
-	configurations = [project.configurations.shadowCommon]
+	configurations = [project.configurations.shadowBundle]
 	archiveClassifier = 'dev-shadow'
 }
 
 remapJar {
 	inputFile.set shadowJar.archiveFile
 
-	archiveClassifier = null
+	//archiveClassifier = null
 }
 
-jar.archiveClassifier = 'dev'
+//jar.archiveClassifier = 'dev'
 
 sourcesJar {
 	def commonSources = project(':common').sourcesJar
@@ -39,11 +47,11 @@ sourcesJar {
 	exclude 'emcutils.accesswidener'
 }
 
-components.java {
-	withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-		skip()
-	}
-}
+//components.java {
+//	withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+//		skip()
+//	}
+//}
 
 modrinth {
 	projectId = 'emcutils'

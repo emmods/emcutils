@@ -1,6 +1,6 @@
 modLoader = "javafml"
 loaderVersion = "[44,)"
-issueTrackerURL = "https://github.com/emmods/emcutils/issues"
+issueTrackerURL = "https://github.com/triphora/emcutils/issues"
 license = "MIT"
 
 [[mods]]

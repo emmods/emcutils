@@ -1,41 +1,41 @@
 [versions]
-minecraft = '1.21'
+minecraft = '1.21.4'
 
 [libraries]
 # MC, loaders, and mappings
 minecraft = { module = 'com.mojang:minecraft', version.ref = 'minecraft' }
 # https://fabricmc.net/develop
-yarn = 'net.fabricmc:yarn:1.21+build.2'
-fabric_loader = 'net.fabricmc:fabric-loader:0.15.11'
-fabric_api = 'net.fabricmc.fabric-api:fabric-api:0.100.3+1.21'
+yarn = 'net.fabricmc:yarn:1.21.4+build.8'
+fabric_loader = 'net.fabricmc:fabric-loader:0.16.10'
+fabric_api = 'net.fabricmc.fabric-api:fabric-api:0.114.2+1.21.4'
 # https://maven.architectury.dev/dev/architectury/yarn-mappings-patch-neoforge/1.21%2Bbuild.4/
 yarn_patch = "dev.architectury:yarn-mappings-patch-neoforge:1.21+build.4"
-# https://files.minecraftforge.net/net/minecraftforge/forge/index_1.21.html
-forge = 'net.minecraftforge:forge:1.21-51.0.18'
+# https://files.minecraftforge.net/net/minecraftforge/forge/index_1.21.4.html
+forge = 'net.minecraftforge:forge:1.21.4-54.0.16'
 # https://neoforged.net
-neoforge = 'net.neoforged:neoforge:21.0.37-beta'
+neoforge = 'net.neoforged:neoforge:21.4.51-beta'
 
 # Fabric subproject
 # https://modrinth.com/mod/midnightlib/version/latest?loader=fabric&game_version=1.21
-midnightlib = 'maven.modrinth:midnightlib:1.5.7-fabric'
+midnightlib = 'maven.modrinth:midnightlib:1.6.6-fabric'
 # https://modrinth.com/mod/modmenu/version/latest?loader=fabric&game_version=1.21
-modmenu = 'maven.modrinth:modmenu:11.0.1'
+modmenu = 'maven.modrinth:modmenu:13.0.0'
 
 # Journey subproject
 # https://jm.gserv.me/service/rest/repository/browse/maven-public/info/journeymap/journeymap-api-fabric/
-journeymap_api = 'info.journeymap:journeymap-api-fabric:2.0.0-1.21-SNAPSHOT'
-# https://modrinth.com/mod/journeymap/version/latest?loader=fabric&game_version=1.21
-journeymap = 'maven.modrinth:journeymap:1.20.6-5.10.0-fabric'
+journeymap_api = 'info.journeymap:journeymap-api-fabric:2.0.0-1.21.4-SNAPSHOT'
+# https://modrinth.com/mod/journeymap/version/latest?loader=fabric&game_version=1.21.4
+journeymap = 'maven.modrinth:journeymap:1.21.4-6.0.0-beta.32+fabric'
 
 # Xaero subproject
-# https://modrinth.com/mod/xaeros-minimap/version/latest?loader=fabric&game_version=1.21
-xaeros_minimap = 'maven.modrinth:xaeros-minimap:24.2.1_Fabric_1.21'
-# https://modrinth.com/mod/xaeros-world-map/version/latest?loader=fabric&game_version=1.21
-xaeros_world_map = 'maven.modrinth:xaeros-world-map:1.38.8_Fabric_1.21'
+# https://modrinth.com/mod/xaeros-minimap/version/latest?loader=fabric&game_version=1.21.4
+xaeros_minimap = 'maven.modrinth:xaeros-minimap:24.7.1_Fabric_1.21.4'
+# https://modrinth.com/mod/xaeros-world-map/version/latest?loader=fabric&game_version=1.21.4
+xaeros_world_map = 'maven.modrinth:xaeros-world-map:1.39.2_Fabric_1.21.4'
 
 [plugins]
 architectury_plugin = 'architectury-plugin:3.4.+'
-architectury_loom = 'dev.architectury.loom:1.6.+'
+architectury_loom = 'dev.architectury.loom:1.7.+'
 
 minotaur = 'com.modrinth.minotaur:2.+'
-shadow = 'com.github.johnrengelman.shadow:8.+'
+shadow = 'com.gradleup.shadow:9.+'

@@ -14,7 +14,7 @@ loom {
 }
 
 configurations {
-	developmentForge.extendsFrom common
+	developmentNeoForge.extendsFrom common
 }
 
 dependencies {

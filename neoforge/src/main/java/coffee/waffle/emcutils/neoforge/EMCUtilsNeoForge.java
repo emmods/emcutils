@@ -3,7 +3,6 @@ package coffee.waffle.emcutils.neoforge;
 import coffee.waffle.emcutils.event.TooltipCallback;
 import coffee.waffle.emcutils.feature.VaultScreen;
 import coffee.waffle.emcutils.Util;
-import net.minecraft.registry.Registries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -14,7 +13,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLPaths;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.io.IOException;
 import java.io.InputStream;

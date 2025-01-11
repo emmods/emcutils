@@ -1,13 +1,11 @@
 package coffee.waffle.emcutils.forge;
 
-import coffee.waffle.emcutils.event.TooltipCallback;
 import coffee.waffle.emcutils.feature.VaultScreen;
 import coffee.waffle.emcutils.Util;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -25,14 +23,14 @@ import static coffee.waffle.emcutils.Util.MODID;
 
 @Mod(MODID)
 public class EMCUtilsForge {
-	public EMCUtilsForge() {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetupEvent);
+	public EMCUtilsForge(FMLJavaModLoadingContext context) {
+		context.getModEventBus().addListener(this::clientSetupEvent);
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigImpl.SPEC);
+		context.registerConfig(ModConfig.Type.CLIENT, ConfigImpl.SPEC);
 
 		movePacks("vt-dark-vault", "dark-ui-vault");
 
-		ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> "", (a, b) -> b));
+		context.registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> "", (a, b) -> b));
 
 		LOG.info("Initialized " + MODID);
 	}

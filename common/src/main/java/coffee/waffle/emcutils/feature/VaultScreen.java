@@ -3,12 +3,11 @@ package coffee.waffle.emcutils.feature;
 import coffee.waffle.emcutils.Config;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerInventory;
@@ -38,7 +37,6 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
 	public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
-		//this.passEvents = false;
 		this.backgroundHeight = 114 + 7 * 18;
 		this.playerInventoryTitleY = this.backgroundHeight - 94;
 
@@ -106,12 +104,9 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
 	@Override
 	protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, TEXTURE);
 		int x = (width - backgroundWidth) / 2;
 		int y = (height - backgroundHeight) / 2;
-		context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
+		context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 	}
 
 	@Override
